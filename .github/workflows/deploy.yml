@@ -23,12 +23,24 @@ jobs:
         with:
           node-version: 20
 
-      - run: npm install
-      - run: npm run build
+      # ✅ Installer pnpm
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
 
+      # ✅ Installer les dépendances DANS client/
+      - run: pnpm install
+        working-directory: client
+
+      # ✅ Build Vite
+      - run: pnpm build
+        working-directory: client
+
+      # ✅ Upload le vrai dossier de build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist/public
+
 
   deploy:
     environment:
