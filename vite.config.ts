@@ -3,18 +3,15 @@ import react from "@vitejs/plugin-react";
 import path from "node:path";
 
 export default defineConfig({
-  // 🔴 POINT CRITIQUE : le vrai front est ici
-  root: path.resolve(__dirname, "client"),
-
-  // 🔴 OBLIGATOIRE pour GitHub Pages
-  base: "/Lumi/",
-
-  plugins: [react()],
-
+  plugins,
+  root: path.resolve(import.meta.dirname, "client"),
   build: {
-    // 🔴 doit matcher le workflow
-    outDir: path.resolve(__dirname, "dist/public"),
+    outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+  },
+  server: {
+    host: true,
+    port: 3000,
   },
 });
 
