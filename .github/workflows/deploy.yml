@@ -27,24 +27,22 @@ jobs:
         with:
           version: 9
 
-      # Install deps (client/)
+      # ✅ IMPORTANT : installation à la RACINE (package.json est à la racine)
       - name: Install dependencies
-        working-directory: client
         run: pnpm install --frozen-lockfile=false
 
-      # Build (client/)
+      # ✅ IMPORTANT : build à la RACINE (vite build + esbuild server)
       - name: Build
-        working-directory: client
         run: pnpm build
 
-      # Verify output exists (helps diagnose path issues)
+      # ✅ Vérif sortie (diagnostic clair si ça échoue)
       - name: Verify build output
         run: |
-          ls -la
           ls -la dist || true
           ls -la dist/public || true
           test -d dist/public
 
+      # ✅ Publie uniquement le front statique
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist/public
