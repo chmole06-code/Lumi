@@ -2,7 +2,7 @@ name: Deploy Lumi to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -16,6 +16,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -23,34 +24,23 @@ jobs:
         with:
           node-version: 20
 
+      # ⚠️ NE PAS définir la version (elle vient du package.json)
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10.4.1
 
-      # ✅ IMPORTANT : installation à la RACINE (package.json est à la racine)
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile=false
+        run: pnpm install --no-frozen-lockfile
 
-      # ✅ IMPORTANT : build à la RACINE (vite build + esbuild server)
       - name: Build
         run: pnpm build
 
-      # ✅ Vérif sortie (diagnostic clair si ça échoue)
-      - name: Verify build output
-        run: |
-          ls -la dist || true
-          ls -la dist/public || true
-          test -d dist/public
-
-      # ✅ Publie uniquement le front statique
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist/public
 
   deploy:
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
-    runs-on: ubuntu-latest
-    needs: build
     steps:
       - uses: actions/deploy-pages@v4
