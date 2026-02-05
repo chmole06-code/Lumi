@@ -2,7 +2,7 @@ name: Deploy Lumi to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -23,24 +23,31 @@ jobs:
         with:
           node-version: 20
 
-      # ✅ Installer pnpm
       - uses: pnpm/action-setup@v4
         with:
           version: 9
 
-      # ✅ Installer les dépendances DANS client/
-      - run: pnpm install
+      # Install deps (client/)
+      - name: Install dependencies
         working-directory: client
+        run: pnpm install --frozen-lockfile=false
 
-      # ✅ Build Vite
-      - run: pnpm build
+      # Build (client/)
+      - name: Build
         working-directory: client
+        run: pnpm build
 
-      # ✅ Upload le vrai dossier de build
+      # Verify output exists (helps diagnose path issues)
+      - name: Verify build output
+        run: |
+          ls -la
+          ls -la dist || true
+          ls -la dist/public || true
+          test -d dist/public
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist/public
-
 
   deploy:
     environment:
