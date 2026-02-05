@@ -2,7 +2,7 @@ name: Deploy Lumi to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -24,15 +24,16 @@ jobs:
         with:
           node-version: 20
 
-      # ⚠️ NE PAS définir la version (elle vient du package.json)
+      # ✅ pnpm : on laisse pnpm lire la version depuis package.json
       - uses: pnpm/action-setup@v4
 
-      - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+      # ✅ Install deps À LA RACINE
+      - run: pnpm install
 
-      - name: Build
-        run: pnpm build
+      # ✅ Build front Vite
+      - run: pnpm build
 
+      # ✅ Upload le build Vite
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist/public
