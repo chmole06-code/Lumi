@@ -175,6 +175,9 @@ export default defineConfig({
   build: {
     outDir: path.resolve(PROJECT_ROOT, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+    input: path.resolve(PROJECT_ROOT, "client", "index.html"),
+  },
   },
   server: {
     port: 3000,
