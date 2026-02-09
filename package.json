@@ -44,13 +44,17 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "commit": "^0.0.4",
     "embla-carousel-react": "^8.6.0",
     "express": "^4.21.2",
     "framer-motion": "^12.23.22",
+    "git": "^0.1.5",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.453.0",
     "nanoid": "^5.1.5",
     "next-themes": "^0.4.6",
+    "pnpm-lock.yaml": "^1.0.0",
+    "push": "^0.1.1",
     "react": "^19.2.1",
     "react-day-picker": "^9.11.1",
     "react-dom": "^19.2.1",
@@ -66,8 +70,8 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.15",
-    "@tailwindcss/vite": "^4.1.3",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.1.14",
     "@types/express": "4.17.21",
     "@types/google.maps": "^3.58.1",
     "@types/node": "^24.7.0",
@@ -91,7 +95,7 @@
   "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af",
   "pnpm": {
     "patchedDependencies": {
-      "wouter@3.7.1": "wouter@3.7.1.patch"
+      "wouter@3.7.1": "patches/wouter@3.7.1.patch"
     },
     "overrides": {
       "tailwindcss>nanoid": "3.3.7"
